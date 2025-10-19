@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAZE</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+        }
+        .hidden {
+            display: none !important;
+        }
+
+        h1 {
+            color: aqua;
+            font-size: 70px;
+        }
+
+        .winner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            z-index: 1000;
+            height: 100vh;
+            width: 100vw;
+            flex-direction: column;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .winner.hidden {
+            display: flex !important;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .winner:not(.hidden) {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .try-again-btn {
+            padding: 15px 30px;
+            font-size: 24px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s ease, background-color 0.2s;
+        }
+
+        .try-again-btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        
+        .start-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .instruction-container {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 500px;
+        }
+        
+        .instruction-container h2 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        
+        .instruction-container p {
+            margin: 12px 0;
+            font-size: 1.2em;
+        }
+        
+        .start-button {
+            margin-top: 25px;
+            padding: 15px 40px;
+            font-size: 1.5em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .start-button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+        }
+        
+        #game-canvas {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="start-screen" id="start-screen">
+        <div class="instruction-container">
+            <h2>🎮 Maze Runner Challenge</h2>
+            <div class="instructions">
+                <p>🎯 <strong>Objective:</strong> Guide the Blue Ball to the Green Goal</p>
+                <p>🔵 Navigate through the red maze walls to reach your target!</p>
+                <p><strong>Controls:</strong></p>
+                <p>⬆️ Up Arrow: Move Up</p>
+                <p>⬇️ Down Arrow: Move Down</p>
+                <p>⬅️ Left Arrow: Move Left</p>
+                <p>➡️ Right Arrow: Move Right</p>
+                <p>🎲 Each game generates a unique maze pattern!</p>
+            </div>
+            <button id="start-button" class="start-button">Start Game</button>
+        </div>
+    </div>
+    
+    <div id="game-canvas"></div>
+
+    <div class="winner hidden">
+        <h1>!!YOU WIN!!</h1>
+        <button id="try-again" class="try-again-btn">Try Again</button>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
